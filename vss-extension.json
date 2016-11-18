@@ -1,0 +1,76 @@
+{
+    "manifestVersion": 1,
+    "id": "php-tools",
+    "name": "PHP Tools for VSTS",
+    "version": "0.1.0",
+    "publisher": "johnc",
+    "description": "PHP for VSTS! Install and run PHP and Composer.",
+    "public": true,
+    "galleryFlags": [
+        "Preview"
+    ],
+    "icons": {
+        "default": "images/Icon64.png",
+        "large": "images/Icon512.png"
+    },
+    "categories": [
+        "Build and release"
+    ],
+    "tags": [
+        "php",
+        "composer"
+    ],
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/incarnate/vsts-php-tools"
+        },
+        "issues": {
+            "uri": "https://github.com/incarnate/vsts-php-tools/issues"
+        },
+        "repository": {
+            "uri": "https://github.com/incarnate/vsts-php-tools"
+        }
+	},
+    "branding": {
+        "color": "#8892BF",
+        "theme": "light"
+    },	
+    "content": {
+        "details": {
+            "path": "README.md"
+        },
+        "license": {
+            "path": "LICENSE"
+        }
+    },
+    "files": [
+      {
+        "path": "install-php"
+      },
+      {
+        "path": "images",
+        "addressable": true
+      }
+    ],
+    "scopes": [
+        "vso.build_execute",
+        "vso.test_write"
+    ],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "install-php",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "install-php"
+            }
+        }
+    ]
+}
