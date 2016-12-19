@@ -1,0 +1,43 @@
+{
+  "id": "6f365c4e-c0f7-11e6-a4a6-cec0c932ce01",
+  "name": "composer",
+  "friendlyName": "Composer",
+  "description": "Run a Composer command",
+  "author": "John C",
+  "helpMarkDown": "",
+  "category": "Utility",
+  "visibility": [
+    "Build",
+    "Release"
+  ],
+  "demands": [],
+  "version": {
+    "Major": "0",
+    "Minor": "1",
+    "Patch": "0"
+  },
+  "minimumAgentVersion": "1.95.0",
+  "instanceNameFormat": "Composer $(message)",
+  "inputs": [
+    {
+      "name": "workingFolder",
+      "type": "filePath",
+      "label": "Working folder",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Current working directory when script is run."
+    },
+    {
+      "name": "command",
+      "type": "string",
+      "label": "Composer command",
+      "defaultValue": "install",
+      "required": true
+    }
+  ],
+  "execution": {
+    "PowerShell3": {
+      "target": "composer.ps1"
+    }
+  }
+}
