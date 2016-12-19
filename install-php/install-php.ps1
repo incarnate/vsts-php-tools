@@ -12,7 +12,7 @@ try {
     [string]$work = Get-VstsTaskVariable -Name 'Agent.WorkFolder'
 
     [string]$phpDir = $work+'\php'
-    [string]$phpVersion = Get-VstsTaskVariable -Name 'phpVersion' -Default 'php-7.0.13-Win32-VC14-x64'
+    [string]$phpVersion = Get-VstsInput -Name 'phpVersion' -Default 'php-7.0.13-Win32-VC14-x64'
     [string]$phpSource = 'http://windows.php.net/downloads/releases/'+$phpVersion+'.zip'
     [string]$phpZip = $work + '\php.zip'
 
@@ -21,7 +21,16 @@ try {
 
     Write-Verbose 'Download PHP'
     $client = New-Object System.Net.WebClient
-    $client.DownloadFile($phpSource, $phpZip)
+
+    try {
+        $client.DownloadFile($phpSource, $phpZip)
+    } catch [Net.WebException] {
+        Write-Verbose 'PHP file not found, trying archive'
+        if ($_.Exception.toString() -Match '404') {
+            $phpSource = 'http://windows.php.net/downloads/releases/archives/'+$phpVersion+'.zip'
+            $client.DownloadFile($phpSource, $phpZip)
+        }
+    }
 
     New-Item -ItemType Directory -Force -Path $phpDir
 
@@ -34,6 +43,12 @@ try {
     $env:Path += ";"+$phpDir
     [Environment]::SetEnvironmentVariable
      ( "Path", $env:Path, [System.EnvironmentVariableTarget]::Machine )
+
+    # Set php.ini and enable openssl & curl
+    cd $phpDir
+    Rename-Item -Path php.ini-development -newName php.ini
+    (Get-Content php.ini).replace(';extension=php_openssl.dll', 'extension=ext\php_openssl.dll') | Set-Content php.ini
+    (Get-Content php.ini).replace(';extension=php_curl.dll', 'extension=ext\php_curl.dll') | Set-Content php.ini
 
     Write-Verbose 'Test PHP'
     php -v
