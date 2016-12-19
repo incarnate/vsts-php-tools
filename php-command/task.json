@@ -1,0 +1,43 @@
+{
+  "id": "c4ec08f6-c1be-11e6-a4a6-cec0c932ce01",
+  "name": "phpcommand",
+  "friendlyName": "PHP Command",
+  "description": "Run a PHP command",
+  "author": "John C",
+  "helpMarkDown": "",
+  "category": "Utility",
+  "visibility": [
+    "Build",
+    "Release"
+  ],
+  "demands": [],
+  "version": {
+    "Major": "0",
+    "Minor": "1",
+    "Patch": "0"
+  },
+  "minimumAgentVersion": "1.95.0",
+  "instanceNameFormat": "PHP Command $(message)",
+  "inputs": [
+    {
+      "name": "workingFolder",
+      "type": "filePath",
+      "label": "Working folder",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Current working directory when script is run."
+    },
+    {
+      "name": "command",
+      "type": "string",
+      "label": "PHP command",
+      "defaultValue": "install",
+      "required": true
+    }
+  ],
+  "execution": {
+    "PowerShell3": {
+      "target": "php-command.ps1"
+    }
+  }
+}
