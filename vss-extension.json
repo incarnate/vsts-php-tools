@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "php-tools",
     "name": "PHP Tools for VSTS",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "publisher": "johnc",
     "description": "PHP for VSTS! Install and run PHP and Composer.",
     "public": true,
@@ -45,7 +45,9 @@
     },
     "files": [
       {
-        "path": "install-php"
+        "path": "install-php",
+        "path": "composer",
+        "path": "php-command"
       },
       {
         "path": "images",
@@ -70,6 +72,26 @@
             ],
             "properties": {
                 "name": "install-php"
+            }
+        },
+        {
+            "id": "composer",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "composer"
+            }
+        },
+        {
+            "id": "php-command",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "php-command"
             }
         }
     ]

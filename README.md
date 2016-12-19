@@ -5,6 +5,8 @@
 This extension contains the following tasks for Microsoft Visual Studio Team Services:<br>
 
 1. Install PHP & Composer
+2. Run a PHP command
+3. Run a Composer command
 
 ## Installation
 
